@@ -11,27 +11,25 @@
       <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
     </div>
 <p align="center">
-  Ingeniero en Tecnologías de la Información | Apasionado por la Ciberseguridad, la Automatización y la Inteligencia Artificial.
+Information Technology Engineer | Passionate about Cybersecurity, Automation, and Artificial Intelligence
 </p>
 <h1>
- 
-  </h1>
+ </h1>
   <div align="center">
     <img src="https://media.giphy.com/media/dWesBcTLavkZuG35MI/giphy.gif" width="600" height="300"/>
   </div>
   
-
----
+  ---
 
 ### 💡 Sobre mí
 
-🎓 Soy ingeniero en Tecnologías de la Información, actualmente especializándome en **Ciberseguridad**.  
-🧠 Utilizo **Inteligencia Artificial** como estrategia para optimizar procesos, análisis de datos y resolver problemas técnicos.  
-🔧 Tengo experiencia en Soporte Tecnico, Redes y servidores, Bases de datos, desarrollo de web Potenciado por IA.
+🎓 I am an Information Technology Engineer, currently specializing in Cybersecurity.
+🧠 I use Artificial Intelligence as a strategy to optimize processes, data analysis, and solve technical problems.
+🔧 I have experience in Technical Support, Networks and Servers, Databases, and AI-powered Web Development.
 
 ---
 
-### 🛠️ Tecnologías y herramientas que domino:
+### 🛠️ Technologies and Tools I Master:
 <div>
     <img src="https://github.com/devicons/devicon/blob/master/icons/python/python-original-wordmark.svg" title="Python" alt="Python" width="40" height="40"/>&nbsp;
     <img src="https://github.com/devicons/devicon/blob/master/icons/github/github-original-wordmark.svg" title="GitHub" alt="GitHub" width="40" height="40"/>&nbsp;
@@ -44,18 +42,12 @@
 
   ---
 
-                    
 
----
+### 🚀 Inspirational Quote:
 
-
----
-
-### 🚀 Frase que me inspira:
-
-> *"La inteligencia artificial no reemplazará a las personas, pero sí potenciará a quienes la usen."*
+> *"Artificial intelligence won't replace people, but it will empower those who use it."*
 > 
-> *"Cada dia podemos ser mejores solo es cuestion de dar pequeños pasos."*
+> *"Every day we can become better — it's just a matter of taking small steps"*
 
 ---
 
