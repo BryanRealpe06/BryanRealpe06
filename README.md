@@ -54,6 +54,7 @@
 ### 🚀 Frase que me inspira:
 
 > *"La inteligencia artificial no reemplazará a las personas, pero sí potenciará a quienes la usen."*
+> 
 > *"Cada dia podemos ser mejores solo es cuestion de dar pequeños pasos."*
 
 ---
