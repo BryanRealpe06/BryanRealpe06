@@ -6,12 +6,7 @@
 <div id="badges" align="center">
     <a href="https://www.linkedin.com/in/bryan-realpe-b13897330/?trk=opento_sprofile_details">
       <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
-    </a>
-    <a href="https://www.twitter.com/yasin_elhadi">
-      <img src="https://img.shields.io/badge/Twitter-blue?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter Badge"/><br />
-    </a>
-    <img src="https://komarev.com/ghpvc/?username=YasinAlhadi&style=flat-square&color=blue" alt=""/>
-  </div>
+
 <p align="center">
   Ingeniero en Tecnologías de la Información | Apasionado por la Ciberseguridad, la Automatización y la Inteligencia Artificial.
 </p>
