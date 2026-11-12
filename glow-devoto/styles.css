@@ -1,0 +1,336 @@
+/* ══════════════════════════════════════════════════════════════════
+   Glow Devoto — depilación con cera, Villa Devoto CABA
+   Archetype: Editorial Dark Warm.  Concepto: el brillo necesita fondo.
+   Sin librerías. Sin build. CSS + JS vanilla.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* Base: marrón-negro cálido. Nunca negro puro, nunca el #0B0B0B de plantilla. */
+  --ink:      #17100d;
+  --ink-2:    #1f1612;
+  --ink-3:    #2b1f19;
+
+  /* Acento: miel/cera. Deliberadamente NO terracota. */
+  --honey:    #e9a23b;
+  --honey-lo: #f3c57e;
+
+  /* Contrapunto frío, para que el cálido no se vuelva monótono. */
+  --sage:     #7e9689;
+
+  --paper:    #f0e6d9;
+  --muted:    #9c8878;
+  --line:     rgba(233,162,59,.17);
+
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans:  "Karla", system-ui, -apple-system, sans-serif;
+
+  --gut: clamp(1.25rem, 5vw, 5rem);
+  --max: 72rem;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:clamp(1rem,.95rem + .25vw,1.09rem);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+.wrap{ width:100%; max-width:var(--max); margin-inline:auto; padding-inline:var(--gut); }
+
+.skip{
+  position:absolute; left:-9999px; top:0; z-index:99;
+  background:var(--honey); color:var(--ink); padding:.7rem 1.2rem; font-weight:600;
+}
+.skip:focus{ left:0; }
+
+:focus-visible{ outline:2px solid var(--honey); outline-offset:3px; }
+
+h1,h2,h3{ font-family:var(--serif); font-weight:400; line-height:1.04; margin:0; letter-spacing:-.012em; }
+p{ margin:0 0 1.1em; max-width:62ch; }
+em{ font-style:italic; }
+strong{ font-weight:600; color:#fff; }
+a{ color:inherit; }
+
+/* Marcador de contenido pendiente de confirmar con el negocio. */
+[data-editar]{
+  border-bottom:1px dashed rgba(233,162,59,.5);
+  color:var(--honey-lo);
+}
+
+/* ─────────────────────────── HERO ─────────────────────────── */
+
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex; flex-direction:column;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+/* El resplandor. Sigue el cursor; en reposo respira solo. */
+.hero__glow{
+  position:absolute; inset:-30%;
+  z-index:-2;
+  background:
+    radial-gradient(38rem 38rem at
+      calc(46% + var(--mx,0px)) calc(46% + var(--my,0px)),
+      rgba(255,190,105,.34) 0%,
+      rgba(233,162,59,.16) 26%,
+      rgba(126,150,137,.07) 46%,
+      transparent 66%);
+  animation:breathe 11s ease-in-out infinite;
+  transition:background .45s cubic-bezier(.22,.61,.36,1);
+  will-change:background;
+}
+@keyframes breathe{
+  0%,100%{ opacity:.82; transform:scale(1); }
+  50%    { opacity:1;   transform:scale(1.06); }
+}
+
+/* Grano: evita que el degradado se vea «digital». */
+.hero__grain{
+  position:absolute; inset:0; z-index:-1; pointer-events:none;
+  opacity:.5; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+}
+
+.nav{
+  position:relative; z-index:3;
+  display:flex; align-items:center; gap:2rem;
+  padding:1.6rem var(--gut);
+}
+.nav__mark{ font-family:var(--serif); font-size:1.3rem; }
+.nav__links{ display:flex; gap:1.8rem; margin-left:auto; font-size:.93rem; }
+.nav__links a{ text-decoration:none; color:var(--muted); transition:color .25s; }
+.nav__links a:hover{ color:var(--paper); }
+.nav__cta{
+  text-decoration:none; font-size:.9rem; font-weight:500;
+  border:1px solid var(--line); padding:.55rem 1.15rem; border-radius:2px;
+  transition:border-color .3s, background .3s;
+}
+.nav__cta:hover{ border-color:var(--honey); background:rgba(233,162,59,.09); }
+
+.hero__inner{
+  position:relative; z-index:2;
+  margin:auto 0; padding:2rem var(--gut) 1rem;
+  width:100%; max-width:var(--max); margin-inline:auto;
+}
+
+.hero__eyebrow{
+  font-size:.86rem; letter-spacing:.07em; color:var(--muted);
+  margin:0 0 1.6rem;
+}
+
+.hero__title{
+  font-size:clamp(3.6rem,14vw,11rem);
+  line-height:.86;
+  margin:0 0 1.4rem;
+  text-shadow:0 0 70px rgba(233,162,59,.22);
+}
+.hero__title .ltr{
+  display:inline-block;
+  opacity:0; transform:translateY(.4em);
+  animation:rise .85s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay:var(--d,0s);
+}
+@keyframes rise{ to{ opacity:1; transform:none; } }
+/* Red de seguridad: si el JS no corre, el título igual se ve. */
+.no-js .hero__title .ltr{ opacity:1; transform:none; animation:none; }
+
+.hero__lede{
+  font-family:var(--serif); font-style:italic;
+  font-size:clamp(1.4rem,3.2vw,2.1rem);
+  color:var(--honey-lo); margin:0 0 1.5rem;
+}
+.hero__claim{ font-size:1.06rem; color:var(--paper); max-width:46ch; margin:0 0 2.4rem; }
+.hero__claim em{ color:var(--honey); font-family:var(--serif); font-size:1.18em; }
+
+.hero__actions{ display:flex; flex-wrap:wrap; gap:.85rem; }
+
+.hero__foot{
+  position:relative; z-index:2;
+  display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+  padding:1.4rem var(--gut) 2rem;
+  font-size:.85rem; color:var(--muted);
+  width:100%; max-width:var(--max); margin-inline:auto;
+}
+.hero__foot-rule{ flex:1; height:1px; background:var(--line); min-width:2rem; }
+
+/* ─────────────────────────── BOTONES ─────────────────────────── */
+
+.btn{
+  display:inline-block; text-decoration:none;
+  font-family:var(--sans); font-size:.96rem; font-weight:500;
+  padding:.92rem 1.7rem;
+  transition:transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .3s, background .3s, border-color .3s;
+}
+/* El pill es la única curva de la página: por eso se lee como botón. */
+.btn--solid{
+  background:var(--honey); color:#1a120c; border:1px solid var(--honey);
+  border-radius:100px; font-weight:600;
+  box-shadow:0 0 0 rgba(233,162,59,0);
+}
+.btn--solid:hover{ transform:translateY(-2px); box-shadow:0 10px 34px -10px rgba(233,162,59,.6); }
+.btn--ghost{
+  border:1px solid var(--line); border-radius:100px; color:var(--paper);
+}
+.btn--ghost:hover{ border-color:var(--honey); background:rgba(233,162,59,.07); }
+.btn--wide{ display:block; text-align:center; }
+
+/* ─────────────────────────── SECCIONES ─────────────────────────── */
+
+section{ padding-block:clamp(4.5rem,11vw,9rem); }
+
+.sec-title{ font-size:clamp(2.1rem,5.2vw,3.7rem); margin:0 0 1.1rem; }
+.sec-lede{ color:var(--muted); font-size:1.05rem; max-width:52ch; margin-bottom:3.2rem; }
+
+/* Reveal al hacer scroll */
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,.61,.36,1); }
+.reveal.in{ opacity:1; transform:none; }
+/* Defensivo (regla dura de la skill): nunca dejar texto invisible. */
+.reveal[data-split]{ opacity:1; transform:none; }
+.no-js .reveal{ opacity:1; transform:none; }
+
+/* ── Pasos ── */
+.steps{ background:var(--ink-2); border-top:1px solid var(--line); }
+.steps__list{ list-style:none; margin:0; padding:0; counter-reset:s; }
+
+.step{
+  display:grid; grid-template-columns:3.6rem 1fr; gap:0 1.6rem;
+  padding:1.9rem 0; border-top:1px solid rgba(240,230,217,.08);
+}
+.step:last-child{ border-bottom:1px solid rgba(240,230,217,.08); }
+.step__n{
+  grid-column:1; grid-row:1 / span 2;
+  font-family:var(--serif); font-size:1.9rem; color:var(--honey);
+  line-height:1; padding-top:.15rem;
+}
+.step h3{ grid-column:2; font-size:1.45rem; margin:0 0 .45rem; }
+.step p{ grid-column:2; color:var(--muted); margin:0; max-width:56ch; }
+
+/* ── Servicios ── */
+.svc{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));
+  gap:2.6rem 3rem;
+}
+.svc__cat{
+  font-size:1.25rem; color:var(--sage);
+  padding-bottom:.6rem; margin-bottom:.3rem;
+  border-bottom:1px solid var(--line);
+}
+.svc__list{ list-style:none; margin:0; padding:0; }
+.svc__list li{
+  display:flex; justify-content:space-between; align-items:baseline; gap:1rem;
+  padding:.62rem 0;
+  border-bottom:1px solid rgba(240,230,217,.06);
+}
+.svc__name{ font-size:1rem; }
+.svc__dur{ font-size:.86rem; color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.svc__note{
+  margin-top:3rem; padding-left:1.1rem;
+  border-left:2px solid var(--honey);
+  color:var(--muted); max-width:54ch;
+}
+
+/* ── Primera vez ── */
+.faq{ background:var(--ink-2); border-top:1px solid var(--line); }
+.faq__kicker{ color:var(--honey); font-size:.9rem; letter-spacing:.06em; margin:0 0 .7rem; }
+.faq__grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr));
+  gap:2.4rem 3.2rem; margin-top:3.2rem;
+}
+.qa h3{
+  font-size:1.35rem; color:var(--honey-lo); margin:0 0 .55rem;
+  font-style:italic;
+}
+.qa p{ color:var(--muted); margin:0; }
+
+/* ── Reseñas ── */
+.rating__inner{
+  display:flex; flex-wrap:wrap; align-items:center; gap:clamp(1.5rem,5vw,4.5rem);
+}
+.rating__num{ display:flex; align-items:baseline; gap:.6rem; }
+.rating__big{
+  font-family:var(--serif);
+  font-size:clamp(5rem,15vw,10rem); line-height:.8; color:var(--honey);
+  text-shadow:0 0 60px rgba(233,162,59,.3);
+}
+.rating__scale{ color:var(--muted); font-size:1rem; }
+.rating__txt{ flex:1; min-width:17rem; }
+.rating__txt p{ font-size:1.14rem; margin:0 0 .5rem; }
+.rating__sub{ color:var(--muted); font-size:.95rem !important; }
+
+/* ── Dónde ── */
+.where{ background:var(--ink-2); border-top:1px solid var(--line); }
+.where__grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr));
+  gap:3.5rem 4rem; align-items:start;
+}
+.where__dl{ margin:2rem 0 0; }
+.where__dl dt{
+  color:var(--muted); font-size:.82rem; letter-spacing:.05em;
+  padding-top:1rem; border-top:1px solid rgba(240,230,217,.08);
+}
+.where__dl dd{ margin:.3rem 0 1rem; font-size:1.05rem; }
+.where__dl dd a{ color:var(--honey-lo); text-decoration:none; border-bottom:1px solid var(--line); }
+.where__map{
+  display:inline-block; margin-top:.8rem; font-size:.95rem;
+  color:var(--sage); text-decoration:none; border-bottom:1px solid currentColor;
+}
+
+.where__cta{
+  background:var(--ink-3); padding:clamp(1.6rem,4vw,2.6rem);
+  border:1px solid var(--line);
+}
+.where__cta h3{ font-size:1.7rem; margin:0 0 .7rem; }
+.where__cta p{ color:var(--muted); }
+.where__cta .btn{ margin-top:.6rem; }
+.where__micro{ font-size:.86rem; margin:1.1rem 0 0; }
+
+/* ── Footer ── */
+.foot{ border-top:1px solid var(--line); padding-block:2.4rem; }
+.foot__inner{ display:flex; flex-wrap:wrap; gap:1rem 2rem; align-items:center; font-size:.88rem; color:var(--muted); }
+.foot__mark{ font-family:var(--serif); font-size:1.15rem; color:var(--paper); }
+.foot__ig{ margin-left:auto; text-decoration:none; }
+
+/* ─────────────────────────── MOBILE ─────────────────────────── */
+/* No es el desktop apretado: es otra composición. */
+
+@media (max-width:780px){
+  .nav__links{ display:none; }
+  .nav__cta{ margin-left:auto; }
+
+  .hero{ min-height:92svh; }
+  .hero__title{ font-size:clamp(3.2rem,19vw,6rem); line-height:.9; }
+  .hero__glow{
+    /* En touch no hay cursor: el resplandor se ancla arriba y respira. */
+    background:radial-gradient(28rem 28rem at 50% 30%,
+      rgba(233,162,59,.32) 0%, rgba(233,162,59,.12) 34%, transparent 66%);
+  }
+  .hero__actions{ flex-direction:column; align-items:stretch; }
+  .hero__actions .btn{ text-align:center; }
+  .hero__foot-rule{ display:none; }
+
+  .step{ grid-template-columns:2.4rem 1fr; gap:0 1rem; }
+  .step__n{ font-size:1.4rem; }
+  .step h3{ font-size:1.25rem; }
+
+  .rating__inner{ flex-direction:column; align-items:flex-start; }
+  .foot__ig{ margin-left:0; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  /* Solo se desactiva lo intrusivo. Las microinteracciones quedan:
+     Windows trae reduce activado de fábrica y la página se vería muerta. */
+  .hero__glow{ animation:none; }
+  html{ scroll-behavior:auto; }
+}
