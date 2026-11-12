@@ -1,84 +1,74 @@
-# Glow Devoto — landing con embudo de ventas
+# Glow Devoto — landing
 
-Sitio estático. Sin build, sin npm. Se sube arrastrando la carpeta a Hostinger,
-Netlify o cualquier hosting estático.
-
-```
-index.html   styles.css   main.js   .htaccess
-```
-
-Si editás CSS o JS, subí el `?v=20261112b` de `index.html`.
+Estático. Sin build, sin npm. Se sube arrastrando la carpeta a Hostinger o
+cualquier hosting estático. Si tocás CSS o JS, subí el `?v=20261112c` del HTML.
 
 ---
 
-## ⚠️ Qué hay que validar con el negocio
+## ⚠️ FALTAN LAS FOTOS — es lo único que bloquea
 
-Ya no quedan huecos: la página está completa y se puede mostrar. Pero estos
-datos los propuse yo, no vienen de Glow Devoto. Antes de ponerla online hay que
-confirmarlos:
+Esta versión sigue el lenguaje visual de ALL.ALBA, y ese estilo **vive de la
+fotografía**. Los 7 espacios están maquetados y reservados, con las medidas
+puestas encima. Hoy muestran un degradado; cuando pongas las fotos, la página
+pasa de «bien» a «como la referencia».
 
-| Qué | Propuesto | Nota |
+No pude bajar fotos de stock: todas las fuentes (Unsplash, Pexels, Pixabay,
+Openverse, Wikimedia) están bloqueadas en este entorno.
+
+### Las 7 fotos que hacen falta
+
+| Dónde | Medida | Qué se ve |
 |---|---|---|
-| **Oferta** | 20% off en la primera sesión | Es el motor del embudo. Si el número cambia, se toca en dos lugares del HTML |
-| **Vigencia** | Hasta fin de mes | Elegida porque es fácil de sostener y no es escasez falsa |
-| **Garantía** | Si no quedás conforme, no pagás | Es una promesa comercial: tienen que querer sostenerla |
-| **Higiene** | Espátula descartable por persona y zona, sin volver al pote, papel nuevo | Es el estándar del rubro, pero hay que confirmar que trabajan así |
-| **Horarios** | Lun a Vie 9–19, Sáb 9–14 | Horario típico de la zona |
+| Hero | 1600×900 | El local o una toma de piel luminosa. Clara y aireada |
+| Tarjeta Piernas | 600×600 | Piernas, piel suave |
+| Tarjeta Cavado | 600×600 | Algo discreto: toalla, camilla, detalle del espacio |
+| Tarjeta Rostro | 600×600 | Rostro, cejas |
+| Tarjeta Torso | 600×600 | Hombro o brazo |
+| Sala | 700×900 | Vertical. La camilla, la sala preparada |
+| Banda teal | 640×400 | Retrato de quien atiende, o el equipo |
 
-### Las reseñas
+**De dónde sacarlas:** lo ideal es el Instagram del negocio. Si no, un celular
+moderno con luz de ventana alcanza. Clave: luz natural, fondo limpio, tonos
+claros.
 
-No puse testimonios. Inventar reseñas con nombres falsos sería fabricar prueba
-social, y además es lo primero que un cliente detecta. En su lugar la sección
-muestra el 4,7 real, las 68 reseñas reales y un link al perfil de Google.
+**Cómo ponerlas:** guardalas en `assets/img/` y en el HTML reemplazá cada
+bloque `<div class="ph ...">` por `<img src="assets/img/hero.jpg" alt="...">`.
+El CSS ya tiene las proporciones.
 
-Si querés testimonios en la página, se copian tres reales del perfil con nombre
-y mes. El bloque se arma en diez minutos.
+## Qué validar con el negocio
 
-### El Instagram
+Estos datos los propuse yo, no vienen de Glow Devoto:
 
-Saqué el link del footer en vez de inventar un usuario. Cuando tengas el handle
-real, se agrega.
+| Qué | Propuesto |
+|---|---|
+| **Oferta** | 20% off en la primera sesión |
+| **Vigencia** | Hasta fin de mes |
+| **Garantía** | Si no quedás conforme, no pagás |
+| **Higiene** | Espátula descartable por persona y zona, papel nuevo |
+| **Horarios** | Lun a Vie 9–19, Sáb 9–14 |
+| **Bajada del logo** | «cuidamos tu piel» |
 
-## El embudo
+Las reseñas no son testimonios inventados: la sección muestra el 4,7 y las 68
+reseñas reales, con link al perfil de Google.
 
-La versión anterior era una página institucional linda, sin embudo. Esta sigue
-una estructura de conversión:
+## Estructura
 
-1. **Hero** — oferta + prueba social + botón, todo en la primera pantalla del
-   teléfono sin scrollear.
-2. **Barra de confianza** — reseñas, sala privada, zona.
-3. **Problema** — las cuatro razones por las que alguien posterga el turno.
-4. **Solución** — los 5 pasos del turno, y un CTA al final.
-5. **Oferta** — qué incluye, escasez, botón.
-6. **Prueba social** — puntaje y reseñas.
-7. **Objeciones** — las preguntas incómodas.
-8. **Reversión de riesgo** — la garantía.
-9. **Cierre** — CTA final, dirección, horarios, mapa.
+Lenguaje visual de la referencia, pero conservando el embudo:
 
-Decisiones tomadas por investigación del rubro:
+1. Hero con foto, titular centrado, botón y puntaje
+2. Banda teal con los 4 pilares e íconos de línea
+3. «Nuestros 4 caminos» — tarjetas con foto y botón
+4. Paso a paso del turno + foto vertical
+5. Banda teal con la oferta
+6. Reseñas sobre rosa empolvado
+7. Primera vez (objeciones)
+8. Contacto
 
-- **Sin menú de navegación.** En una landing de conversión, los links del menú
-  se llevan gente del embudo. Arriba solo queda el botón.
-- **Barra fija abajo en móvil** (Pedir turno · Llamar · Llegar), en la zona del
-  pulgar.
-- **El CTA se repite 6 veces**, en cada punto de decisión.
-- **Escasez real, nunca falsa.** Un contador regresivo inventado da un empujón
-  corto y daña la marca.
-- **Sin seña.** Menos fricción para reservar.
+El menú usa anclas internas, así que no saca gente del embudo. En móvil se
+oculta y aparece la barra fija de abajo. **11 enlaces a WhatsApp**, cada uno
+con mensaje prellenado distinto para saber qué sección convirtió.
 
 ## Paleta
 
-Cálida y clara: crema `#fdf6ee`, arena `#f8e9d7`, barro `#f1d7bd`, tinta
-`#3a2217`, acento `#c4551f`. Tipografías Fraunces + Karla.
-
-## Turnos
-
-El CTA va a WhatsApp (`wa.me/5491138475751`) con mensajes prellenados distintos
-según desde dónde se toque, para saber qué parte de la página convirtió. Si más
-adelante quieren un turnero (AgendaPro, Gendu, Turnito), se reemplazan los
-`href` de `.cta` y del `.dock`.
-
-## Accesibilidad
-
-Foco visible, enlace de salto, contraste AA, `prefers-reduced-motion`
-respetado en el scroll.
+Teal `#2e8585`, rosa empolvado `#faeae6`, coral `#e07a62`, gris suave
+`#f2efed`. Tipografías Jost (títulos, light) + Karla (texto).
