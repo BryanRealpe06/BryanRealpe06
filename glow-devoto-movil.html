@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="es-AR" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glow Devoto — Depilación con cera en Villa Devoto</title>
+<meta name="description" content="Depilación con cera en Av. Francisco Beiró 5266, Villa Devoto. Sala privada, turnos con hora real. Si querés parar, paramos.">
+<meta name="theme-color" content="#17100d">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Glow Devoto — Depilación con cera en Villa Devoto">
+<meta property="og:description" content="Sala privada, turnos con hora real, y una regla simple: si querés parar, paramos.">
+<meta property="og:locale" content="es_AR">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   Glow Devoto — depilación con cera, Villa Devoto CABA
+   Archetype: Editorial Dark Warm.  Concepto: el brillo necesita fondo.
+   Sin librerías. Sin build. CSS + JS vanilla.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* Base: marrón-negro cálido. Nunca negro puro, nunca el #0B0B0B de plantilla. */
+  --ink:      #17100d;
+  --ink-2:    #1f1612;
+  --ink-3:    #2b1f19;
+
+  /* Acento: miel/cera. Deliberadamente NO terracota. */
+  --honey:    #e9a23b;
+  --honey-lo: #f3c57e;
+
+  /* Contrapunto frío, para que el cálido no se vuelva monótono. */
+  --sage:     #7e9689;
+
+  --paper:    #f0e6d9;
+  --muted:    #9c8878;
+  --line:     rgba(233,162,59,.17);
+
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans:  "Karla", system-ui, -apple-system, sans-serif;
+
+  --gut: clamp(1.25rem, 5vw, 5rem);
+  --max: 72rem;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:clamp(1rem,.95rem + .25vw,1.09rem);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+.wrap{ width:100%; max-width:var(--max); margin-inline:auto; padding-inline:var(--gut); }
+
+.skip{
+  position:absolute; left:-9999px; top:0; z-index:99;
+  background:var(--honey); color:var(--ink); padding:.7rem 1.2rem; font-weight:600;
+}
+.skip:focus{ left:0; }
+
+:focus-visible{ outline:2px solid var(--honey); outline-offset:3px; }
+
+h1,h2,h3{ font-family:var(--serif); font-weight:400; line-height:1.04; margin:0; letter-spacing:-.012em; }
+p{ margin:0 0 1.1em; max-width:62ch; }
+em{ font-style:italic; }
+strong{ font-weight:600; color:#fff; }
+a{ color:inherit; }
+
+/* Marcador de contenido pendiente de confirmar con el negocio. */
+[data-editar]{
+  border-bottom:1px dashed rgba(233,162,59,.5);
+  color:var(--honey-lo);
+}
+
+/* ─────────────────────────── HERO ─────────────────────────── */
+
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex; flex-direction:column;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+/* El resplandor. Sigue el cursor; en reposo respira solo. */
+.hero__glow{
+  position:absolute; inset:-30%;
+  z-index:-2;
+  background:
+    radial-gradient(38rem 38rem at
+      calc(46% + var(--mx,0px)) calc(46% + var(--my,0px)),
+      rgba(255,190,105,.34) 0%,
+      rgba(233,162,59,.16) 26%,
+      rgba(126,150,137,.07) 46%,
+      transparent 66%);
+  animation:breathe 11s ease-in-out infinite;
+  transition:background .45s cubic-bezier(.22,.61,.36,1);
+  will-change:background;
+}
+@keyframes breathe{
+  0%,100%{ opacity:.82; transform:scale(1); }
+  50%    { opacity:1;   transform:scale(1.06); }
+}
+
+/* Grano: evita que el degradado se vea «digital». */
+.hero__grain{
+  position:absolute; inset:0; z-index:-1; pointer-events:none;
+  opacity:.5; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+}
+
+.nav{
+  position:relative; z-index:3;
+  display:flex; align-items:center; gap:2rem;
+  padding:1.6rem var(--gut);
+}
+.nav__mark{ font-family:var(--serif); font-size:1.3rem; }
+.nav__links{ display:flex; gap:1.8rem; margin-left:auto; font-size:.93rem; }
+.nav__links a{ text-decoration:none; color:var(--muted); transition:color .25s; }
+.nav__links a:hover{ color:var(--paper); }
+.nav__cta{
+  text-decoration:none; font-size:.9rem; font-weight:500;
+  border:1px solid var(--line); padding:.55rem 1.15rem; border-radius:2px;
+  transition:border-color .3s, background .3s;
+}
+.nav__cta:hover{ border-color:var(--honey); background:rgba(233,162,59,.09); }
+
+.hero__inner{
+  position:relative; z-index:2;
+  margin:auto 0; padding:2rem var(--gut) 1rem;
+  width:100%; max-width:var(--max); margin-inline:auto;
+}
+
+.hero__eyebrow{
+  font-size:.86rem; letter-spacing:.07em; color:var(--muted);
+  margin:0 0 1.6rem;
+}
+
+.hero__title{
+  font-size:clamp(3.6rem,14vw,11rem);
+  line-height:.86;
+  margin:0 0 1.4rem;
+  text-shadow:0 0 70px rgba(233,162,59,.22);
+}
+.hero__title .ltr{
+  display:inline-block;
+  opacity:0; transform:translateY(.4em);
+  animation:rise .85s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay:var(--d,0s);
+}
+@keyframes rise{ to{ opacity:1; transform:none; } }
+/* Red de seguridad: si el JS no corre, el título igual se ve. */
+.no-js .hero__title .ltr{ opacity:1; transform:none; animation:none; }
+
+.hero__lede{
+  font-family:var(--serif); font-style:italic;
+  font-size:clamp(1.4rem,3.2vw,2.1rem);
+  color:var(--honey-lo); margin:0 0 1.5rem;
+}
+.hero__claim{ font-size:1.06rem; color:var(--paper); max-width:46ch; margin:0 0 2.4rem; }
+.hero__claim em{ color:var(--honey); font-family:var(--serif); font-size:1.18em; }
+
+.hero__actions{ display:flex; flex-wrap:wrap; gap:.85rem; }
+
+.hero__foot{
+  position:relative; z-index:2;
+  display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+  padding:1.4rem var(--gut) 2rem;
+  font-size:.85rem; color:var(--muted);
+  width:100%; max-width:var(--max); margin-inline:auto;
+}
+.hero__foot-rule{ flex:1; height:1px; background:var(--line); min-width:2rem; }
+
+/* ─────────────────────────── BOTONES ─────────────────────────── */
+
+.btn{
+  display:inline-block; text-decoration:none;
+  font-family:var(--sans); font-size:.96rem; font-weight:500;
+  padding:.92rem 1.7rem;
+  transition:transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .3s, background .3s, border-color .3s;
+}
+/* El pill es la única curva de la página: por eso se lee como botón. */
+.btn--solid{
+  background:var(--honey); color:#1a120c; border:1px solid var(--honey);
+  border-radius:100px; font-weight:600;
+  box-shadow:0 0 0 rgba(233,162,59,0);
+}
+.btn--solid:hover{ transform:translateY(-2px); box-shadow:0 10px 34px -10px rgba(233,162,59,.6); }
+.btn--ghost{
+  border:1px solid var(--line); border-radius:100px; color:var(--paper);
+}
+.btn--ghost:hover{ border-color:var(--honey); background:rgba(233,162,59,.07); }
+.btn--wide{ display:block; text-align:center; }
+
+/* ─────────────────────────── SECCIONES ─────────────────────────── */
+
+section{ padding-block:clamp(4.5rem,11vw,9rem); }
+
+.sec-title{ font-size:clamp(2.1rem,5.2vw,3.7rem); margin:0 0 1.1rem; }
+.sec-lede{ color:var(--muted); font-size:1.05rem; max-width:52ch; margin-bottom:3.2rem; }
+
+/* Reveal al hacer scroll */
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,.61,.36,1); }
+.reveal.in{ opacity:1; transform:none; }
+/* Defensivo (regla dura de la skill): nunca dejar texto invisible. */
+.reveal[data-split]{ opacity:1; transform:none; }
+.no-js .reveal{ opacity:1; transform:none; }
+
+/* ── Pasos ── */
+.steps{ background:var(--ink-2); border-top:1px solid var(--line); }
+.steps__list{ list-style:none; margin:0; padding:0; counter-reset:s; }
+
+.step{
+  display:grid; grid-template-columns:3.6rem 1fr; gap:0 1.6rem;
+  padding:1.9rem 0; border-top:1px solid rgba(240,230,217,.08);
+}
+.step:last-child{ border-bottom:1px solid rgba(240,230,217,.08); }
+.step__n{
+  grid-column:1; grid-row:1 / span 2;
+  font-family:var(--serif); font-size:1.9rem; color:var(--honey);
+  line-height:1; padding-top:.15rem;
+}
+.step h3{ grid-column:2; font-size:1.45rem; margin:0 0 .45rem; }
+.step p{ grid-column:2; color:var(--muted); margin:0; max-width:56ch; }
+
+/* ── Servicios ── */
+.svc{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));
+  gap:2.6rem 3rem;
+}
+.svc__cat{
+  font-size:1.25rem; color:var(--sage);
+  padding-bottom:.6rem; margin-bottom:.3rem;
+  border-bottom:1px solid var(--line);
+}
+.svc__list{ list-style:none; margin:0; padding:0; }
+.svc__list li{
+  display:flex; justify-content:space-between; align-items:baseline; gap:1rem;
+  padding:.62rem 0;
+  border-bottom:1px solid rgba(240,230,217,.06);
+}
+.svc__name{ font-size:1rem; }
+.svc__dur{ font-size:.86rem; color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.svc__note{
+  margin-top:3rem; padding-left:1.1rem;
+  border-left:2px solid var(--honey);
+  color:var(--muted); max-width:54ch;
+}
+
+/* ── Primera vez ── */
+.faq{ background:var(--ink-2); border-top:1px solid var(--line); }
+.faq__kicker{ color:var(--honey); font-size:.9rem; letter-spacing:.06em; margin:0 0 .7rem; }
+.faq__grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr));
+  gap:2.4rem 3.2rem; margin-top:3.2rem;
+}
+.qa h3{
+  font-size:1.35rem; color:var(--honey-lo); margin:0 0 .55rem;
+  font-style:italic;
+}
+.qa p{ color:var(--muted); margin:0; }
+
+/* ── Reseñas ── */
+.rating__inner{
+  display:flex; flex-wrap:wrap; align-items:center; gap:clamp(1.5rem,5vw,4.5rem);
+}
+.rating__num{ display:flex; align-items:baseline; gap:.6rem; }
+.rating__big{
+  font-family:var(--serif);
+  font-size:clamp(5rem,15vw,10rem); line-height:.8; color:var(--honey);
+  text-shadow:0 0 60px rgba(233,162,59,.3);
+}
+.rating__scale{ color:var(--muted); font-size:1rem; }
+.rating__txt{ flex:1; min-width:17rem; }
+.rating__txt p{ font-size:1.14rem; margin:0 0 .5rem; }
+.rating__sub{ color:var(--muted); font-size:.95rem !important; }
+
+/* ── Dónde ── */
+.where{ background:var(--ink-2); border-top:1px solid var(--line); }
+.where__grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr));
+  gap:3.5rem 4rem; align-items:start;
+}
+.where__dl{ margin:2rem 0 0; }
+.where__dl dt{
+  color:var(--muted); font-size:.82rem; letter-spacing:.05em;
+  padding-top:1rem; border-top:1px solid rgba(240,230,217,.08);
+}
+.where__dl dd{ margin:.3rem 0 1rem; font-size:1.05rem; }
+.where__dl dd a{ color:var(--honey-lo); text-decoration:none; border-bottom:1px solid var(--line); }
+.where__map{
+  display:inline-block; margin-top:.8rem; font-size:.95rem;
+  color:var(--sage); text-decoration:none; border-bottom:1px solid currentColor;
+}
+
+.where__cta{
+  background:var(--ink-3); padding:clamp(1.6rem,4vw,2.6rem);
+  border:1px solid var(--line);
+}
+.where__cta h3{ font-size:1.7rem; margin:0 0 .7rem; }
+.where__cta p{ color:var(--muted); }
+.where__cta .btn{ margin-top:.6rem; }
+.where__micro{ font-size:.86rem; margin:1.1rem 0 0; }
+
+/* ── Footer ── */
+.foot{ border-top:1px solid var(--line); padding-block:2.4rem; }
+.foot__inner{ display:flex; flex-wrap:wrap; gap:1rem 2rem; align-items:center; font-size:.88rem; color:var(--muted); }
+.foot__mark{ font-family:var(--serif); font-size:1.15rem; color:var(--paper); }
+.foot__ig{ margin-left:auto; text-decoration:none; }
+
+/* ─────────────────────────── MOBILE ─────────────────────────── */
+/* No es el desktop apretado: es otra composición. */
+
+@media (max-width:780px){
+  .nav__links{ display:none; }
+  .nav__cta{ margin-left:auto; }
+
+  .hero{ min-height:92svh; }
+  .hero__title{ font-size:clamp(3.2rem,19vw,6rem); line-height:.9; }
+  .hero__glow{
+    /* En touch no hay cursor: el resplandor se ancla arriba y respira. */
+    background:radial-gradient(28rem 28rem at 50% 30%,
+      rgba(233,162,59,.32) 0%, rgba(233,162,59,.12) 34%, transparent 66%);
+  }
+  .hero__actions{ flex-direction:column; align-items:stretch; }
+  .hero__actions .btn{ text-align:center; }
+  .hero__foot-rule{ display:none; }
+
+  .step{ grid-template-columns:2.4rem 1fr; gap:0 1rem; }
+  .step__n{ font-size:1.4rem; }
+  .step h3{ font-size:1.25rem; }
+
+  .rating__inner{ flex-direction:column; align-items:flex-start; }
+  .foot__ig{ margin-left:0; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  /* Solo se desactiva lo intrusivo. Las microinteracciones quedan:
+     Windows trae reduce activado de fábrica y la página se vería muerta. */
+  .hero__glow{ animation:none; }
+  html{ scroll-behavior:auto; }
+}
+
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HealthAndBeautyBusiness",
+  "name": "Glow Devoto",
+  "description": "Depilación con cera en Villa Devoto, CABA.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. Francisco Beiró 5266",
+    "addressLocality": "Villa Devoto",
+    "addressRegion": "CABA",
+    "postalCode": "C1419",
+    "addressCountry": "AR"
+  },
+  "telephone": "+5491138475751",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "68"
+  }
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<!-- ───────────────────────── HERO ───────────────────────── -->
+<header class="hero" id="hero">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__grain" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Principal">
+    <span class="nav__mark">Glow&nbsp;Devoto</span>
+    <div class="nav__links">
+      <a href="#servicios">Servicios</a>
+      <a href="#primera-vez">Primera vez</a>
+      <a href="#donde">Dónde</a>
+    </div>
+    <a class="nav__cta" href="https://wa.me/5491138475751?text=Hola%20Glow%20Devoto%2C%20quer%C3%ADa%20consultar%20por%20un%20turno." target="_blank" rel="noopener">Pedir turno</a>
+  </nav>
+
+  <div class="hero__inner">
+    <p class="hero__eyebrow">Villa Devoto, Buenos Aires</p>
+    <h1 class="hero__title" data-letters>Glow Devoto</h1>
+    <p class="hero__lede">Depilación con cera.</p>
+    <p class="hero__claim">Sala privada, turnos con hora real, y una regla simple:<br>
+      <em>si querés parar, paramos.</em></p>
+
+    <div class="hero__actions">
+      <a class="btn btn--solid" href="https://wa.me/5491138475751?text=Hola%20Glow%20Devoto%2C%20quer%C3%ADa%20consultar%20por%20un%20turno." target="_blank" rel="noopener">Pedir turno por WhatsApp</a>
+      <a class="btn btn--ghost" href="#primera-vez">Es mi primera vez</a>
+    </div>
+  </div>
+
+  <div class="hero__foot">
+    <span>Av. Francisco Beiró 5266</span>
+    <span class="hero__foot-rule" aria-hidden="true"></span>
+    <span>+54 9 11 3847-5751</span>
+  </div>
+</header>
+
+<main id="contenido">
+
+<!-- ───────────────────────── CÓMO ES ───────────────────────── -->
+<section class="steps" id="como-es">
+  <div class="wrap">
+    <h2 class="sec-title reveal">Cómo es un turno acá</h2>
+    <p class="sec-lede reveal">Nadie debería entrar a un lugar sin saber qué va a pasar. Esto es,
+      literalmente, el orden de las cosas.</p>
+
+    <ol class="steps__list">
+      <li class="step reveal">
+        <span class="step__n">1</span>
+        <h3>Charlamos dos minutos</h3>
+        <p>Qué zona, qué cera te va mejor, cuándo te depilaste por última vez. Si tomás algún
+          medicamento que afecte la piel, acá es donde lo decís.</p>
+      </li>
+      <li class="step reveal">
+        <span class="step__n">2</span>
+        <h3>Te dejamos sola en la sala</h3>
+        <p>Puerta cerrada. Te preparás a tu ritmo y nos avisás cuando estés lista.</p>
+      </li>
+      <li class="step reveal">
+        <span class="step__n">3</span>
+        <h3>Trabajamos por zonas</h3>
+        <p>De a partes, con toalla cubriendo lo que no estamos trabajando. Vas viendo cómo avanza
+          y cuánto falta.</p>
+      </li>
+      <li class="step reveal">
+        <span class="step__n">4</span>
+        <h3>Si querés parar, levantás la mano</h3>
+        <p>Paramos ahí. Se cobra lo que se hizo, no el turno completo. No hay que explicar nada.</p>
+      </li>
+      <li class="step reveal">
+        <span class="step__n">5</span>
+        <h3>Calmante frío y las indicaciones</h3>
+        <p>Qué hacer y qué evitar las próximas 48 horas. Te lo mandamos por WhatsApp para que no
+          dependa de tu memoria.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ───────────────────────── SERVICIOS ───────────────────────── -->
+<section class="services" id="servicios">
+  <div class="wrap">
+    <h2 class="sec-title reveal">Zonas y duración</h2>
+    <p class="sec-lede reveal">Los tiempos son reales: es lo que tarda, no lo que nos gustaría que
+      tardara. Si venís por varias zonas, se suman y te damos el turno completo.</p>
+
+    <div class="svc">
+      <div class="svc__group reveal">
+        <h3 class="svc__cat">Piernas</h3>
+        <ul class="svc__list">
+          <li><span class="svc__name">Media pierna</span><span class="svc__dur">25 min</span></li>
+          <li><span class="svc__name">Pierna completa</span><span class="svc__dur">45 min</span></li>
+          <li><span class="svc__name">Pierna completa + cavado</span><span class="svc__dur">60 min</span></li>
+        </ul>
+      </div>
+
+      <div class="svc__group reveal">
+        <h3 class="svc__cat">Cavado</h3>
+        <ul class="svc__list">
+          <li><span class="svc__name">Clásico</span><span class="svc__dur">20 min</span></li>
+          <li><span class="svc__name">Tiro alto</span><span class="svc__dur">25 min</span></li>
+          <li><span class="svc__name">Completo</span><span class="svc__dur">35 min</span></li>
+        </ul>
+      </div>
+
+      <div class="svc__group reveal">
+        <h3 class="svc__cat">Torso y brazos</h3>
+        <ul class="svc__list">
+          <li><span class="svc__name">Axilas</span><span class="svc__dur">15 min</span></li>
+          <li><span class="svc__name">Brazos</span><span class="svc__dur">30 min</span></li>
+          <li><span class="svc__name">Espalda</span><span class="svc__dur">30 min</span></li>
+        </ul>
+      </div>
+
+      <div class="svc__group reveal">
+        <h3 class="svc__cat">Rostro</h3>
+        <ul class="svc__list">
+          <li><span class="svc__name">Bozo</span><span class="svc__dur">10 min</span></li>
+          <li><span class="svc__name">Cejas (diseño)</span><span class="svc__dur">20 min</span></li>
+          <li><span class="svc__name">Rostro completo</span><span class="svc__dur">30 min</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="svc__note reveal">
+      Los precios los pasamos por WhatsApp y los actualizamos seguido. Preferimos decirte el número
+      del día antes que dejar una lista vieja colgada acá.
+    </p>
+  </div>
+</section>
+
+<!-- ───────────────────────── PRIMERA VEZ ───────────────────────── -->
+<section class="faq" id="primera-vez">
+  <div class="wrap">
+    <p class="faq__kicker reveal">Primera vez</p>
+    <h2 class="sec-title reveal">Lo que todo el mundo pregunta<br>y a nadie le gusta preguntar</h2>
+
+    <div class="faq__grid">
+      <article class="qa reveal">
+        <h3>¿Me va a doler?</h3>
+        <p>Un poco, sí. Es un tirón corto, no un dolor que se sostiene. La primera vez es la más
+          molesta porque el pelo nunca fue trabajado; de la tercera sesión en adelante la mayoría
+          dice que casi no lo registra. No te vamos a decir que es indoloro.</p>
+      </article>
+
+      <article class="qa reveal">
+        <h3>¿Y si tengo mucho pelo?</h3>
+        <p>No existe «demasiado pelo». Es, literalmente, el trabajo. Venís como estés y lo
+          resolvemos.</p>
+      </article>
+
+      <article class="qa reveal">
+        <h3>¿Me van a mirar raro?</h3>
+        <p>No. Estrías, cicatrices, lunares, foliculitis, el pelo creciendo para cualquier lado:
+          vemos eso todos los días y no es tema de conversación salvo que vos lo traigas.</p>
+      </article>
+
+      <article class="qa reveal">
+        <h3>¿Qué tan limpio es?</h3>
+        <p>Espátula descartable, una por persona y por zona. La cera usada no vuelve al pote.
+          Camilla con papel nuevo en cada turno. Si querés ver cómo preparamos todo antes de
+          empezar, te lo mostramos.</p>
+      </article>
+
+      <article class="qa reveal">
+        <h3>¿Cuánto pelo necesito tener?</h3>
+        <p>Entre 5 milímetros y un centímetro, más o menos dos o tres semanas sin afeitar. Más
+          corto que eso la cera no lo agarra y el turno no rinde.</p>
+      </article>
+
+      <article class="qa reveal">
+        <h3>¿Puedo ir con la regla?</h3>
+        <p>Sí, con tampón o copita. Vas a estar un poco más sensible, nada más. Si preferís
+          reprogramar, se reprograma sin drama.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────── RESEÑAS ───────────────────────── -->
+<section class="rating" id="resenas">
+  <div class="wrap rating__inner">
+    <div class="rating__num reveal">
+      <span class="rating__big">4,7</span>
+      <span class="rating__scale">sobre 5</span>
+    </div>
+    <div class="rating__txt reveal">
+      <p>Es el promedio de <strong>68 reseñas en Google</strong> de gente que vino, se depiló y se
+        tomó el trabajo de volver a escribir algo.</p>
+      <p class="rating__sub">No las elegimos nosotras. Están todas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────── DÓNDE ───────────────────────── -->
+<section class="where" id="donde">
+  <div class="wrap where__grid">
+    <div class="reveal">
+      <h2 class="sec-title">Dónde y cuándo</h2>
+      <dl class="where__dl">
+        <dt>Dirección</dt>
+        <dd>Av. Francisco Beiró 5266<br>C1419 — Villa Devoto, CABA</dd>
+
+        <dt>Horarios</dt>
+        <dd data-editar>A confirmar con el local</dd>
+
+        <dt>Teléfono</dt>
+        <dd><a href="tel:+5491138475751">+54 9 11 3847-5751</a></dd>
+
+        <dt>Cómo se paga</dt>
+        <dd>Transferencia y efectivo</dd>
+      </dl>
+
+      <a class="where__map" href="https://www.google.com/maps/search/?api=1&query=Av.+Francisco+Beir%C3%B3+5266,+C1419+CABA" target="_blank" rel="noopener">Abrir en Google Maps</a>
+    </div>
+
+    <div class="where__cta reveal">
+      <h3>El turno se saca por WhatsApp</h3>
+      <p>Escribinos qué zona querés y en qué franja podés. Te contestamos con los horarios libres
+        de esta semana y el precio del día.</p>
+      <a class="btn btn--solid btn--wide" href="https://wa.me/5491138475751?text=Hola%20Glow%20Devoto%2C%20quer%C3%ADa%20consultar%20por%20un%20turno." target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      <p class="where__micro">Si no contestamos en el momento, estamos con alguien en la sala.
+        Respondemos apenas terminamos.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <span class="foot__mark">Glow Devoto</span>
+    <span class="foot__addr">Av. Francisco Beiró 5266 — Villa Devoto, CABA</span>
+    <a class="foot__ig" href="#" data-editar>Instagram</a>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   Glow Devoto — main.js
+   Patrón IIFE clásico (sin ES modules: rompen en file:// y en cache).
+   Cada init va envuelto: si uno falla, los demás siguen vivos.
+   ══════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  document.documentElement.classList.remove('no-js');
+
+  function safe(fn, name) {
+    try { fn(); }
+    catch (e) { console.warn('[glow] init falló:', name, e); }
+  }
+
+  /* ── 1. Título letra por letra ──────────────────────────────────
+     El contenido ya está en el HTML; esto solo lo reparte. Si falla,
+     el texto queda tal cual (ver .no-js en el CSS).               */
+  function initLetters() {
+    var el = document.querySelector('[data-letters]');
+    if (!el || el.dataset.done === '1') return;     // idempotente
+    var text = el.textContent.trim();
+    var frag = document.createDocumentFragment();
+
+    text.split('').forEach(function (ch, i) {
+      var s = document.createElement('span');
+      s.className = 'ltr';
+      s.textContent = ch === ' ' ? ' ' : ch;
+      s.style.setProperty('--d', (i * 0.045).toFixed(3) + 's');
+      frag.appendChild(s);
+    });
+
+    el.textContent = '';
+    el.appendChild(frag);
+    el.dataset.done = '1';
+    el.setAttribute('aria-label', text);
+  }
+
+  /* ── 2. Resplandor que sigue al cursor ──────────────────────────
+     Un solo momento orquestado. Throttled con rAF, desactivado en
+     touch (donde el CSS ya ancla el glow).                        */
+  function initGlow() {
+    var glow = document.querySelector('.hero__glow');
+    var hero = document.getElementById('hero');
+    if (!glow || !hero) return;
+    if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+
+    var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+
+    function loop() {
+      cx += (tx - cx) * 0.085;
+      cy += (ty - cy) * 0.085;
+      glow.style.setProperty('--mx', cx.toFixed(1) + 'px');
+      glow.style.setProperty('--my', cy.toFixed(1) + 'px');
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) {
+        raf = requestAnimationFrame(loop);
+      } else { raf = null; }
+    }
+
+    hero.addEventListener('pointermove', function (e) {
+      var r = hero.getBoundingClientRect();
+      tx = (e.clientX - r.left - r.width / 2) * 0.42;
+      ty = (e.clientY - r.top - r.height / 2) * 0.42;
+      if (!raf) raf = requestAnimationFrame(loop);
+    }, { passive: true });
+
+    hero.addEventListener('pointerleave', function () {
+      tx = 0; ty = 0;
+      if (!raf) raf = requestAnimationFrame(loop);
+    }, { passive: true });
+  }
+
+  /* ── 3. Reveal al hacer scroll ──────────────────────────────────
+     Umbral bajo (0.05) para que dispare apenas asoma, y red de
+     seguridad a los 6s: nada puede quedar invisible para siempre. */
+  function initReveal() {
+    var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    if (!items.length) return;
+
+    function showAll() {
+      items.forEach(function (n) { n.classList.add('in'); });
+    }
+
+    if (!('IntersectionObserver' in window)) { showAll(); return; }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var n = en.target;
+        var sibs = n.parentElement ? Array.prototype.slice.call(n.parentElement.children) : [n];
+        var i = Math.max(0, sibs.indexOf(n));
+        n.style.transitionDelay = Math.min(i * 70, 350) + 'ms';
+        n.classList.add('in');
+        io.unobserve(n);
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' });
+
+    items.forEach(function (n) { io.observe(n); });
+
+    setTimeout(showAll, 6000);   // red de seguridad obligatoria
+  }
+
+  /* ── 4. Anclas con scroll nativo ────────────────────────────────
+     Sin Lenis: es frágil entre configuraciones de Windows.        */
+  function initAnchors() {
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      var t = document.querySelector(id);
+      if (!t) return;
+      e.preventDefault();
+      var top = t.getBoundingClientRect().top + window.pageYOffset - 12;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    });
+  }
+
+  function boot() {
+    safe(initLetters, 'letters');
+    safe(initGlow,    'glow');
+    safe(initReveal,  'reveal');
+    safe(initAnchors, 'anchors');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else { boot(); }
+})();
+
+</script>
+</body>
+</html>
