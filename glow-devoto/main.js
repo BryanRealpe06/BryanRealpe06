@@ -13,63 +13,6 @@
     catch (e) { console.warn('[glow] init falló:', name, e); }
   }
 
-  /* ── 1. Título letra por letra ──────────────────────────────────
-     El contenido ya está en el HTML; esto solo lo reparte. Si falla,
-     el texto queda tal cual (ver .no-js en el CSS).               */
-  function initLetters() {
-    var el = document.querySelector('[data-letters]');
-    if (!el || el.dataset.done === '1') return;     // idempotente
-    var text = el.textContent.trim();
-    var frag = document.createDocumentFragment();
-
-    text.split('').forEach(function (ch, i) {
-      var s = document.createElement('span');
-      s.className = 'ltr';
-      s.textContent = ch === ' ' ? ' ' : ch;
-      s.style.setProperty('--d', (i * 0.045).toFixed(3) + 's');
-      frag.appendChild(s);
-    });
-
-    el.textContent = '';
-    el.appendChild(frag);
-    el.dataset.done = '1';
-    el.setAttribute('aria-label', text);
-  }
-
-  /* ── 2. Resplandor que sigue al cursor ──────────────────────────
-     Un solo momento orquestado. Throttled con rAF, desactivado en
-     touch (donde el CSS ya ancla el glow).                        */
-  function initGlow() {
-    var glow = document.querySelector('.hero__glow');
-    var hero = document.getElementById('hero');
-    if (!glow || !hero) return;
-    if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-
-    var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
-
-    function loop() {
-      cx += (tx - cx) * 0.085;
-      cy += (ty - cy) * 0.085;
-      glow.style.setProperty('--mx', cx.toFixed(1) + 'px');
-      glow.style.setProperty('--my', cy.toFixed(1) + 'px');
-      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) {
-        raf = requestAnimationFrame(loop);
-      } else { raf = null; }
-    }
-
-    hero.addEventListener('pointermove', function (e) {
-      var r = hero.getBoundingClientRect();
-      tx = (e.clientX - r.left - r.width / 2) * 0.42;
-      ty = (e.clientY - r.top - r.height / 2) * 0.42;
-      if (!raf) raf = requestAnimationFrame(loop);
-    }, { passive: true });
-
-    hero.addEventListener('pointerleave', function () {
-      tx = 0; ty = 0;
-      if (!raf) raf = requestAnimationFrame(loop);
-    }, { passive: true });
-  }
-
   /* ── 3. Reveal al hacer scroll ──────────────────────────────────
      Umbral bajo (0.05) para que dispare apenas asoma, y red de
      seguridad a los 6s: nada puede quedar invisible para siempre. */
@@ -117,8 +60,6 @@
   }
 
   function boot() {
-    safe(initLetters, 'letters');
-    safe(initGlow,    'glow');
     safe(initReveal,  'reveal');
     safe(initAnchors, 'anchors');
   }
