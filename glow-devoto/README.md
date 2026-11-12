@@ -11,23 +11,33 @@ Si editás CSS o JS, subí el `?v=20261112b` de `index.html`.
 
 ---
 
-## ⚠️ LO QUE HAY QUE COMPLETAR ANTES DE PUBLICAR
+## ⚠️ Qué hay que validar con el negocio
 
-Todo lo pendiente está **resaltado en ámbar con línea punteada** en la página
-(`[data-editar]`). No se puede publicar así: hay ofertas y promesas que inventé
-y que el negocio tiene que confirmar o cambiar.
+Ya no quedan huecos: la página está completa y se puede mostrar. Pero estos
+datos los propuse yo, no vienen de Glow Devoto. Antes de ponerla online hay que
+confirmarlos:
 
-| Dónde | Qué falta | Por qué importa |
+| Qué | Propuesto | Nota |
 |---|---|---|
-| Hero y Oferta | **El «20% off»** | Lo inventé. Es el motor del embudo: sin una oferta real no hay conversión |
-| Oferta | **Escasez real** | Cupos que de verdad queden. Nunca un contador falso |
-| Oferta | Beneficio extra | Opcional, borrar si no hay |
-| Garantía | **«Si no quedás conforme no pagás»** | Es una promesa comercial. Si no la sostienen, se cambia |
-| FAQ | **Protocolo de higiene** | Lo dejé en blanco a propósito: no sé cómo trabajan |
-| Confianza | «Material descartable» | Confirmar |
-| Prueba social | **3 reseñas reales** | Copiarlas de su perfil de Google, con nombre y mes |
-| Cierre | Horarios | — |
-| Footer | Instagram | — |
+| **Oferta** | 20% off en la primera sesión | Es el motor del embudo. Si el número cambia, se toca en dos lugares del HTML |
+| **Vigencia** | Hasta fin de mes | Elegida porque es fácil de sostener y no es escasez falsa |
+| **Garantía** | Si no quedás conforme, no pagás | Es una promesa comercial: tienen que querer sostenerla |
+| **Higiene** | Espátula descartable por persona y zona, sin volver al pote, papel nuevo | Es el estándar del rubro, pero hay que confirmar que trabajan así |
+| **Horarios** | Lun a Vie 9–19, Sáb 9–14 | Horario típico de la zona |
+
+### Las reseñas
+
+No puse testimonios. Inventar reseñas con nombres falsos sería fabricar prueba
+social, y además es lo primero que un cliente detecta. En su lugar la sección
+muestra el 4,7 real, las 68 reseñas reales y un link al perfil de Google.
+
+Si querés testimonios en la página, se copian tres reales del perfil con nombre
+y mes. El bloque se arma en diez minutos.
+
+### El Instagram
+
+Saqué el link del footer en vez de inventar un usuario. Cuando tengas el handle
+real, se agrega.
 
 ## El embudo
 
