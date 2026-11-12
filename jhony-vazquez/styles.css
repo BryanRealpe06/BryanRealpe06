@@ -1,0 +1,187 @@
+/* ══════════════════════════════════════════════════
+   Jhony Vazquez — Hair & Coffee, Avellaneda
+   Espresso + crema + latón. Tres colores, como manda el rubro.
+   ══════════════════════════════════════════════════ */
+:root{
+  --esp:#241a14;      /* espresso, base oscura */
+  --esp-2:#2f2219;
+  --coffee:#3e2b20;
+  --cream:#f4ece0;    /* latte */
+  --cream-2:#e7dac6;
+  --brass:#c8954a;    /* el único acento */
+  --brass-l:#dfb36a;
+  --mut:#a4917f;
+  --line:rgba(200,149,74,.22);
+
+  --disp:"Archivo",system-ui,sans-serif;
+  --sans:"Work Sans",system-ui,sans-serif;
+  --gut:clamp(1.1rem,4vw,3.5rem);
+  --max:74rem;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--esp);color:var(--cream);font-family:var(--sans);
+  font-weight:300;font-size:clamp(.98rem,.94rem+.22vw,1.06rem);line-height:1.68;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:var(--gut);}
+h1,h2,h3{font-family:var(--disp);font-weight:800;line-height:1;margin:0;letter-spacing:-.025em;}
+p{margin:0 0 1em;max-width:60ch;}
+a{color:inherit;}
+.skip{position:absolute;left:-9999px;background:var(--brass);color:var(--esp);padding:.7rem 1.1rem;}
+.skip:focus{left:0;top:0;z-index:99;}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
+section{padding-block:clamp(3.2rem,8vw,6rem);}
+.h2{font-size:clamp(1.9rem,5vw,3.2rem);margin:0 0 1rem;}
+.kick{color:var(--brass);font-family:var(--disp);font-weight:700;font-size:.8rem;
+  letter-spacing:.14em;text-transform:uppercase;margin:0 0 .5rem;}
+.kick--br{color:var(--coffee);}
+.st{color:var(--brass);letter-spacing:.06em;}
+.st--l{font-size:1.25rem;}
+[data-editar]{background:rgba(200,149,74,.2);border-bottom:1px dashed var(--brass);padding:0 .2em;}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.22,.61,.36,1);}
+.reveal.in{opacity:1;transform:none;}
+.reveal[data-split]{opacity:1;transform:none;}
+.no-js .reveal{opacity:1;transform:none;}
+
+/* Placeholders de foto */
+.ph{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:radial-gradient(12rem 9rem at 30% 25%,rgba(200,149,74,.26),transparent 70%),
+    radial-gradient(14rem 10rem at 72% 78%,rgba(62,43,32,.5),transparent 70%),
+    linear-gradient(145deg,#3a2a1f,#1d150f);}
+.ph::after{content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(244,236,224,.07) 1px,transparent 1px);background-size:13px 13px;}
+.tag{position:relative;z-index:1;font-family:var(--disp);font-weight:700;font-size:.68rem;
+  letter-spacing:.1em;color:var(--esp);background:rgba(200,149,74,.9);padding:.28rem .66rem;border-radius:3px;}
+
+/* Botones */
+.btn{display:inline-block;text-decoration:none;text-align:center;background:var(--brass);
+  color:var(--esp);font-family:var(--disp);font-weight:700;font-size:.92rem;letter-spacing:.03em;
+  padding:.85rem 1.8rem;border-radius:3px;transition:background .22s,transform .2s;}
+.btn:hover{background:var(--brass-l);transform:translateY(-2px);}
+.btn--sm{padding:.55rem 1.1rem;font-size:.82rem;}
+.btn--big{padding:1.05rem 2.3rem;font-size:1rem;}
+.btn--gho{background:transparent;color:var(--cream);border:1px solid var(--line);}
+.btn--gho:hover{background:rgba(200,149,74,.12);border-color:var(--brass);}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:40;background:rgba(36,26,20,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav__in{display:flex;align-items:center;gap:1.5rem;max-width:var(--max);margin-inline:auto;padding:.7rem var(--gut);}
+.logo{text-decoration:none;display:flex;flex-direction:column;line-height:1.05;}
+.logo b{font-family:var(--disp);font-weight:800;font-size:1rem;letter-spacing:.06em;}
+.logo em{font-style:normal;font-size:.6rem;letter-spacing:.3em;color:var(--brass);}
+.nav__m{display:flex;gap:1.4rem;margin-left:auto;font-size:.88rem;}
+.nav__m a{text-decoration:none;color:var(--mut);transition:color .2s;}
+.nav__m a:hover{color:var(--cream);}
+
+/* Hero */
+.hero{position:relative;padding:0;min-height:clamp(30rem,82vh,44rem);display:flex;}
+.ph--hero{position:absolute;inset:0;}
+.ph--hero .tag{position:absolute;bottom:1rem;right:1rem;}
+.hero__in{position:relative;z-index:2;margin:auto 0;width:100%;max-width:var(--max);
+  margin-inline:auto;padding:3rem var(--gut);}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(100deg,rgba(36,26,20,.93) 38%,rgba(36,26,20,.55) 70%,transparent);}
+.hero__k{color:var(--brass);font-size:.86rem;letter-spacing:.1em;text-transform:uppercase;
+  font-family:var(--disp);font-weight:700;margin:0 0 1rem;}
+.hero h1{font-size:clamp(3rem,10vw,6.5rem);margin:0 0 1.2rem;}
+.hero__s{font-size:1.08rem;max-width:40ch;margin:0 0 1.8rem;color:var(--cream);}
+.hero__act{display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:1.3rem;}
+.hero__pr{font-size:.92rem;color:var(--mut);margin:0;}
+.hero__pr b{font-family:var(--disp);font-weight:800;color:var(--cream);font-size:1.1rem;}
+
+/* Tira */
+.strip{background:var(--brass);color:var(--esp);padding-block:1.3rem;}
+.strip ul{list-style:none;margin:0 auto;padding-inline:var(--gut);max-width:var(--max);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:.9rem 1.5rem;}
+.strip li{display:flex;flex-direction:column;font-size:.83rem;}
+.strip b{font-family:var(--disp);font-weight:800;font-size:1rem;}
+.strip span{opacity:.82;}
+.strip [data-editar]{background:rgba(36,26,20,.14);border-bottom-color:var(--esp);}
+
+/* Servicios */
+.svc{background:var(--esp-2);}
+.svc__g{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);margin-top:2rem;}
+.s{background:var(--esp-2);padding:1.6rem 1.4rem;display:flex;flex-direction:column;}
+.s h3{font-size:1.4rem;margin:0 0 .5rem;}
+.s p{font-size:.9rem;color:var(--mut);flex:1;margin:0 0 1rem;}
+.s__p{font-family:var(--disp);font-weight:700;color:var(--brass);font-size:1.05rem;}
+.s__t{font-size:.8rem;color:var(--mut);}
+.svc__cta{display:flex;align-items:center;justify-content:space-between;gap:1.4rem;flex-wrap:wrap;margin-top:1.8rem;}
+.svc__note{color:var(--mut);font-size:.9rem;margin:0;max-width:40ch;}
+
+/* Galería */
+.gal{background:var(--esp);}
+.gal__s{color:var(--mut);max-width:48ch;}
+.gal__g{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:2px;margin:2.2rem 0;}
+.ph--g{aspect-ratio:9/11;}
+.gal__cta{display:flex;gap:.7rem;flex-wrap:wrap;}
+
+/* Café — la sección clara, para cortar el oscuro */
+.cafe{background:var(--cream);color:var(--coffee);}
+.cafe__in{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center;}
+.cafe h2{color:var(--coffee);}
+.cafe p{color:#5c4433;}
+.cafe__l{list-style:none;margin:1.4rem 0 0;padding:0;}
+.cafe__l li{padding:.5rem 0 .5rem 1.6rem;position:relative;border-top:1px solid rgba(62,43,32,.14);font-size:.94rem;}
+.cafe__l li::before{content:"—";position:absolute;left:0;color:var(--brass);}
+.ph--cafe{aspect-ratio:4/5;}
+
+/* Equipo */
+.team{background:var(--esp-2);}
+.team__s{color:var(--mut);max-width:48ch;margin-bottom:2rem;}
+.team__g{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:1.4rem;}
+.ph--m{aspect-ratio:1/1;}
+.m h3{font-size:1.25rem;margin:.9rem 0 .15rem;}
+.m p{font-size:.86rem;color:var(--mut);margin:0;}
+
+/* Reseñas */
+.rev{background:var(--coffee);}
+.rev__in{display:flex;align-items:center;gap:clamp(1.4rem,5vw,4rem);flex-wrap:wrap;}
+.rev__n{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+.rev__b{font-family:var(--disp);font-weight:800;font-size:clamp(3.4rem,10vw,5.5rem);color:var(--brass);line-height:.85;}
+.rev__t{flex:1;min-width:17rem;}
+.rev__a{color:var(--brass);font-weight:600;text-decoration:none;border-bottom:2px solid var(--brass);}
+
+/* Reservar */
+.book{background:var(--esp);text-align:center;}
+.book__in{display:flex;flex-direction:column;align-items:center;}
+.book__h{font-size:clamp(2.1rem,6vw,3.5rem);margin:0 0 .7rem;}
+.book__p{max-width:44ch;color:var(--mut);margin:0 auto 1.6rem;}
+.book__pr{margin:1rem 0 0;font-size:.9rem;color:var(--mut);}
+.book__pr b{color:var(--brass);font-family:var(--disp);}
+.book__d{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1.4rem;
+  margin:2.8rem 0 1.2rem;text-align:left;width:100%;}
+.book__d dt{font-family:var(--disp);font-weight:700;font-size:.72rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--brass);margin-bottom:.25rem;}
+.book__d dd{margin:0;font-size:.95rem;}
+.book__d a{color:var(--cream);}
+.book__map{color:var(--brass);font-weight:600;font-size:.93rem;}
+
+.foot{border-top:1px solid var(--line);padding:1.6rem 0 5.5rem;}
+.foot__in{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;align-items:center;font-size:.84rem;color:var(--mut);}
+.foot__m{font-family:var(--disp);font-weight:800;color:var(--cream);letter-spacing:.05em;}
+.foot__m em{font-style:normal;font-weight:500;color:var(--brass);letter-spacing:.2em;font-size:.75rem;}
+
+/* Dock móvil */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;gap:.45rem;
+  padding:.55rem .6rem calc(.55rem + env(safe-area-inset-bottom));
+  background:rgba(36,26,20,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);}
+.dock__a{flex:1;text-align:center;text-decoration:none;font-family:var(--disp);font-weight:700;
+  font-size:.82rem;padding:.75rem .3rem;border-radius:3px;border:1px solid var(--line);color:var(--cream);}
+.dock__a--m{flex:1.7;background:var(--brass);color:var(--esp);border-color:var(--brass);}
+
+@media (max-width:860px){
+  .nav__m{display:none;}
+  .dock{display:flex;}
+  .cafe__in{grid-template-columns:1fr;}
+  .cafe__in .ph--cafe{order:-1;}
+  .hero::before{background:linear-gradient(rgba(36,26,20,.6),rgba(36,26,20,.94) 45%);}
+  .hero h1{font-size:clamp(2.8rem,14vw,4rem);}
+  .hero__act{flex-direction:column;}
+  .hero__act .btn{width:100%;}
+  .svc__cta{flex-direction:column;align-items:stretch;}
+  .book__d{text-align:center;}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
